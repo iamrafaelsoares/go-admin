@@ -48,7 +48,7 @@ func GetUser(c *fiber.Ctx) error {
 		Id: uint(id),
 	}
 
-	database.DB.Preload("Role").Find(&user)
+	database.DB.Preload("Role.Permissions").Find(&user)
 
 	return c.JSON(user)
 }
@@ -68,7 +68,7 @@ func UpdateUser(c *fiber.Ctx) error {
 		return err
 	}
 
-	database.DB.Preload("Role").Model(&user).Updates(user)
+	database.DB.Preload("Role.Permissions").Model(&user).Updates(user)
 
 	return c.JSON(user)
 }
